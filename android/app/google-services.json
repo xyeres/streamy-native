@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "713200124551",
+    "project_id": "streamy-dev-51f11",
+    "storage_bucket": "streamy-dev-51f11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713200124551:android:1bb965e4a66b2bafa26e22",
+        "android_client_info": {
+          "package_name": "com.trackplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713200124551-6io8sp6jo9jpi8ib7q5snpg2mqa238h6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trackplayer",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "713200124551-0ofl1hjuq6e0e0qmhjr5d99t0rqpi4gj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQh1rd3gXN07VW3NmjpX38fk6mh4V18Lw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713200124551-0ofl1hjuq6e0e0qmhjr5d99t0rqpi4gj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

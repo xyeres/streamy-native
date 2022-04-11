@@ -11,11 +11,12 @@
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.1.0",
+    "@react-native-firebase/app": "^14.7.0",
+    "@react-native-firebase/firestore": "^14.7.0",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.1",
     "@reduxjs/toolkit": "^1.8.1",
     "algoliasearch": "^4.13.0",
-    "firebase": "^9.6.10",
     "react": "17.0.2",
     "react-instantsearch-native": "^6.23.3",
     "react-native": "0.68.0",
