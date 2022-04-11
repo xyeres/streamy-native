@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Image, Text } from 'react-native';
+import {StyleSheet, View, FlatList, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
-import { connectInfiniteHits } from 'react-instantsearch-native';
+import {connectInfiniteHits} from 'react-instantsearch-native';
 import Highlight from './Highlight';
 
 const styles = StyleSheet.create({
@@ -13,27 +13,27 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     padding: 15,
-    alignItems:'center',
+    alignItems: 'center',
   },
   titleText: {
     fontWeight: 'bold',
   },
   coverImage: {
-    width:36,
-    height:36,
+    width: 36,
+    height: 36,
     marginRight: 6,
     borderRadius: 4,
-  }
+  },
 });
 
-const InfiniteHits = ({ hits, hasMore, refineNext }) => {
+const InfiniteHits = ({hits, hasMore, refineNext}) => {
   return (
     <FlatList
       data={hits}
       keyExtractor={item => item.objectID}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       onEndReached={() => hasMore && refineNext()}
-      renderItem={({ item }) => (
+      renderItem={({item}) => (
         <View style={styles.item}>
           <Image
             style={styles.coverImage}
@@ -45,8 +45,8 @@ const InfiniteHits = ({ hits, hasMore, refineNext }) => {
             <Highlight attribute="title" hit={item} />
             <Text>{item.artist}</Text>
           </View>
-        </View>)
-      }
+        </View>
+      )}
     />
   );
 };

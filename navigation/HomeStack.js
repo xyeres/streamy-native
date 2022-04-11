@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home';
 import Search from '../screens/Search';
 import Player from '../screens/Player';
+import Tracklist from '../screens/Tracklist';
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator();
@@ -16,17 +17,20 @@ const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
+        name="Tracklist"
+        options={({route}) => ({title: route.params.title})}
+        component={Tracklist}
+      />
+      <Stack.Screen
         name="Search"
         component={Search}
         options={{headerShown: false}}
       />
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
-          name="Player"
-          component={Player}
-          options={{headerShown: false}}
-        />
-      </Stack.Group>
+      <Stack.Screen
+        name="Player"
+        component={Player}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

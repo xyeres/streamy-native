@@ -26,12 +26,7 @@ import playlistData from '../features/player/playlist.json';
 
 import localTrack from '../features/player/test.mp3';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  selectArtist,
-  setArtist,
-  setIsPlaying,
-  setNotPlaying,
-} from '../features/player/playerSlice';
+import {setIsPlaying, setNotPlaying} from '../features/player/playerSlice';
 
 const setupIfNecessary = async () => {
   // if app was relaunched and music was already playing, we don't setup again.
@@ -76,41 +71,23 @@ const App = ({navigation}) => {
   const progress = useProgress();
   const [trackArtwork, setTrackArtwork] = useState();
   const [trackTitle, setTrackTitle] = useState();
-  const dispatch = useDispatch();
+  const [trackArtist, setTrackArtist] = useState();
 
-  const trackArtist = useSelector(selectArtist);
-
-  // useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
-  //   if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
-  //     const track = await TrackPlayer.getTrack(event.nextTrack);
-  //     const {title, artist, artwork} = track || {};
-  //     setTrackTitle(title);
-  //     console.log('aritst', artist);
-  //     dispatch(setArtist(artist));
-  //     setTrackArtwork(artwork);
-  //   }
-  // });
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    if (
+      event.type === Event.PlaybackTrackChanged &&
+      event.nextTrack !== undefined
+    ) {
+      const track = await TrackPlayer.getTrack(event.nextTrack);
+      const {title, artist, artwork} = track || {};
+      setTrackTitle(title);
+      setTrackArtist(artist);
+      setTrackArtwork(artwork);
+    }
+  });
 
   useEffect(() => {
     setupIfNecessary();
-  }, []);
-
-  useEffect(() => {
-    const setupPlayerState = async () => {
-      const currentTrack = await TrackPlayer.getCurrentTrack();
-
-      if (currentTrack == null) {
-        // TODO: Perhaps present an error or restart the playlist?
-        return;
-      } else {
-        const {title, artist, artwork} = currentTrack || {};
-        setTrackTitle(title);
-        dispatch(setArtist(artist));
-        setTrackArtwork(artwork);
-        console.log(currentTrack);
-      }
-    };
-    setupPlayerState();
   }, []);
 
   return (
