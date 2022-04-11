@@ -21,11 +21,11 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 
-import playlistData from '../player/playlist.json';
+import playlistData from '../features/player/playlist.json';
 
-import localTrack from '../player/test.mp3';
+import localTrack from '../features/player/test.mp3';
 import {useDispatch, useSelector} from 'react-redux';
-import {setIsPlaying, setNotPlaying} from '../player/playerSlice';
+import {setIsPlaying, setNotPlaying} from '../features/player/playerSlice';
 
 const setupIfNecessary = async () => {
   // if app was relaunched and music was already playing, we don't setup again.
