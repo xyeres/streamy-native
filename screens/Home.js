@@ -47,6 +47,7 @@ const Home = ({navigation}) => {
     <View style={styles.container}>
       <Button title="Search" onPress={() => navigation.navigate('Search')} />
       <Button title="Player" onPress={() => navigation.navigate('Player')} />
+      <Button title="Test" onPress={() => navigation.navigate('Test')} />
       <FlatList
         data={albums}
         numColumns={3}
