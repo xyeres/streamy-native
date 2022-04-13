@@ -70,7 +70,7 @@ const togglePlayback = async playbackState => {
   }
 };
 
-const App = ({navigation}) => {
+const Player = ({navigation}) => {
   const playbackState = usePlaybackState();
   const isPlaying = playbackState === State.Playing;
   const progress = useProgress();
@@ -80,37 +80,19 @@ const App = ({navigation}) => {
 
   const trackArtist = useSelector(selectArtist);
 
-  // useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
-  //   if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
-  //     const track = await TrackPlayer.getTrack(event.nextTrack);
-  //     const {title, artist, artwork} = track || {};
-  //     setTrackTitle(title);
-  //     console.log('aritst', artist);
-  //     dispatch(setArtist(artist));
-  //     setTrackArtwork(artwork);
-  //   }
-  // });
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    // if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
+    const track = await TrackPlayer.getTrack(event.nextTrack);
+    const {title, artist, artwork} = track || {};
+    setTrackTitle(title);
+    console.log('aritst', artist);
+    dispatch(setArtist(artist));
+    setTrackArtwork(artwork);
+    // }
+  });
 
   useEffect(() => {
     setupIfNecessary();
-  }, []);
-
-  useEffect(() => {
-    const setupPlayerState = async () => {
-      const currentTrack = await TrackPlayer.getCurrentTrack();
-
-      if (currentTrack == null) {
-        // TODO: Perhaps present an error or restart the playlist?
-        return;
-      } else {
-        const {title, artist, artwork} = currentTrack || {};
-        setTrackTitle(title);
-        dispatch(setArtist(artist));
-        setTrackArtwork(artwork);
-        console.log(currentTrack);
-      }
-    };
-    setupPlayerState();
   }, []);
 
   return (
@@ -128,7 +110,6 @@ const App = ({navigation}) => {
               }}
               style={styles.queueButton}>
               Home
-              <Ionicons name="heart-outline" size={30} />
             </Text>
           </TouchableWithoutFeedback>
         </View>
@@ -244,4 +225,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Player;
