@@ -22,7 +22,7 @@ const TracklistItem = ({item}) => {
 
   return (
     <TouchableOpacity onPress={() => onPressAddToQueue(track)}>
-      <View style={styles.item}>
+      <View style={styles.itemRow}>
         <View>
           <Text style={styles.itemText}>{item.title}</Text>
           <Text style={[styles.itemText, styles.secondText]}>
@@ -38,13 +38,14 @@ const TracklistItem = ({item}) => {
 export default TracklistItem;
 
 const styles = StyleSheet.create({
-  item: {
-    display: 'flex',
+  itemRow: {
     flexDirection: 'row',
+
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: 'lightgray',
+    // paddingHorizontal: 10,
     paddingBottom: 10,
     paddingTop: 10,
   },
