@@ -12,6 +12,9 @@ import {
 import TabIcon from './TabIcon';
 import Player from './Player';
 import MiniPlayer from './MiniPlayer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from '../screens/HomeScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const {
   Value,
@@ -31,7 +34,7 @@ const SNAP_TOP = 0;
 const SNAP_BOTTOM = height - TABBAR_HEIGHT - MINIMIZED_PLAYER_HEIGHT;
 
 const config = {
-  damping: 25,
+  damping: 18,
   mass: 1,
   stiffness: 150,
   overshootClamping: false,
@@ -61,7 +64,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const BottomTab = () => {
+const Tab = createBottomTabNavigator();
+
+const BottomTab = ({navigation}) => {
   const translationY = new Value(0);
   const velocityY = new Value(0);
   const state = new Value(State.UNDETERMINED);
@@ -115,7 +120,7 @@ const BottomTab = () => {
             offset,
             timing({
               clock,
-              duration: 300,
+              duration: 250,
               from: offset,
               to: SNAP_TOP,
             }),
@@ -127,7 +132,7 @@ const BottomTab = () => {
             offset,
             timing({
               clock,
-              duration: 300,
+              duration: 250,
               from: offset,
               to: SNAP_BOTTOM,
             }),
@@ -137,6 +142,10 @@ const BottomTab = () => {
       ]),
     [],
   );
+
+  const handlePlayerOpen = () => {
+    goUp.setValue(1);
+  };
   return (
     <>
       <PanGestureHandler {...gestureHandler}>
@@ -166,13 +175,21 @@ const BottomTab = () => {
       </PanGestureHandler>
       <Animated.View style={{transform: [{translateY: translateBottomTab}]}}>
         <SafeAreaView style={styles.container}>
-          <TabIcon name="home" label="Home" />
-          <TabIcon name="search" label="Search" />
+          {/* <TabIcon
+            name="home"
+            label="Home"
+            onPress={() => navigation.navigate('Home')}
+          />
+          <TabIcon
+            name="search"
+            label="Search"
+            onPress={() => navigation.navigate('Search')}
+          />
           <TabIcon
             name="chevron-up"
             label="Player"
-            onPress={() => goUp.setValue(1)}
-          />
+            onPress={handlePlayerOpen}
+          /> */}
         </SafeAreaView>
       </Animated.View>
     </>

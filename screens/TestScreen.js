@@ -38,7 +38,7 @@ const PlaylistVideo = ({name, channel, views, image}) => {
   );
 };
 
-export default class Test extends React.Component {
+export default class TestScreen extends React.Component {
   UNSAFE_componentWillMount() {
     this._y = 0;
     this._animation = new Animated.Value(0);

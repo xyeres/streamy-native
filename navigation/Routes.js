@@ -1,6 +1,8 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import HomeStack from './HomeStack';
+import HomeStackScreen from './HomeStack';
+import BottomTab from '../components/BottomTab';
+import Tabs from './Tabs';
 
 export default function Routes() {
   // TODO authcheck load user and show loading state here
@@ -8,8 +10,6 @@ export default function Routes() {
   const AuthStack = () => null;
 
   return (
-    <NavigationContainer>
-      {user ? <HomeStack /> : <AuthStack />}
-    </NavigationContainer>
+    <NavigationContainer>{user ? <Tabs /> : <AuthStack />}</NavigationContainer>
   );
 }

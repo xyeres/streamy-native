@@ -6,7 +6,7 @@ import SearchBox from '../components/SearchBox';
 import InfiniteHits from '../components/InfiniteHits';
 import {PUBLIC_ALGOLIA_APP_ID, PUBLIC_ALGOLIA_SEARCH_KEY} from '@env';
 
-const Search = () => {
+const SearchScreen = () => {
   const algoliaConfig = {
     appId: PUBLIC_ALGOLIA_APP_ID,
     searchKey: PUBLIC_ALGOLIA_SEARCH_KEY,
@@ -71,7 +71,7 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {

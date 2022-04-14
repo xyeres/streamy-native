@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableWithoutFeedback} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 const styles = StyleSheet.create({
@@ -18,10 +18,12 @@ const styles = StyleSheet.create({
 
 export default function MiniPlayer() {
   return (
-    <View style={styles.container}>
-      <Icon name="heart" color="white" size={24} />
-      <Text style={styles.text}>Metronomy - The Bay</Text>
-      <Icon name="play-circle" color="white" size={24} />
-    </View>
+    <TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <Icon name="heart" color="white" size={20} />
+        <Text style={styles.text}>Metronomy - The Bay</Text>
+        <Icon name="play-circle" color="white" size={22} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }

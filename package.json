@@ -13,6 +13,7 @@
     "@miblanchard/react-native-slider": "^2.1.0",
     "@react-native-firebase/app": "^14.7.0",
     "@react-native-firebase/firestore": "^14.7.0",
+    "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.1",
     "@reduxjs/toolkit": "^1.8.1",

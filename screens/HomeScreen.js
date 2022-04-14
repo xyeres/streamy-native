@@ -13,7 +13,7 @@ import {State, usePlaybackState} from 'react-native-track-player';
 import Loading from '../components/Loading';
 import firestore from '@react-native-firebase/firestore';
 
-const Home = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [albums, setAlbums] = useState([]);
   const {width: DEVICE_WIDTH} = Dimensions.get('window');
@@ -65,9 +65,6 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Button title="Search" onPress={() => navigation.navigate('Search')} />
-        <Button title="Player" onPress={() => navigation.navigate('Player')} />
-        <Button title="Test" onPress={() => navigation.navigate('Test')} />
         <View style={[styles.grid, {width: DEVICE_WIDTH}]}>
           {albums.map(album => (
             <Album key={album.id} item={album} />
@@ -81,7 +78,7 @@ const Home = ({navigation}) => {
   );
 };
 
-export default Home;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {

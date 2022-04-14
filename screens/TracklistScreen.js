@@ -11,7 +11,7 @@ import firestore from '@react-native-firebase/firestore';
 import Loading from '../components/Loading';
 import TracklistItem from '../components/TracklistItem';
 
-const Tracklist = ({route}) => {
+const TracklistScreen = ({route}) => {
   const {listId} = route.params;
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,7 @@ const Tracklist = ({route}) => {
   );
 };
 
-export default Tracklist;
+export default TracklistScreen;
 
 const styles = StyleSheet.create({
   container: {

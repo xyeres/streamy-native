@@ -70,7 +70,7 @@ const togglePlayback = async playbackState => {
   }
 };
 
-const Player = ({navigation}) => {
+const PlayerScreen = ({navigation}) => {
   const playbackState = usePlaybackState();
   const isPlaying = playbackState === State.Playing;
   const progress = useProgress();
@@ -225,4 +225,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Player;
+export default PlayerScreen;
