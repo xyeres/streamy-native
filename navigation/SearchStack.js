@@ -7,7 +7,13 @@ const SearchStack = createNativeStackNavigator();
 const SearchStackScreen = () => {
   return (
     <SearchStack.Navigator>
-      <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
+      <SearchStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="SearchScreen"
+        component={SearchScreen}
+      />
     </SearchStack.Navigator>
   );
 };

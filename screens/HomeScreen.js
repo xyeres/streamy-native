@@ -12,11 +12,14 @@ import React, {useState, useEffect} from 'react';
 import {State, usePlaybackState} from 'react-native-track-player';
 import Loading from '../components/Loading';
 import firestore from '@react-native-firebase/firestore';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [albums, setAlbums] = useState([]);
   const {width: DEVICE_WIDTH} = Dimensions.get('window');
+
+  const tabBarHeight = useBottomTabBarHeight();
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -65,12 +68,20 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={[styles.grid, {width: DEVICE_WIDTH}]}>
+        <View style={[styles.grid, {width: DEVICE_WIDTH, paddingTop: 20}]}>
           {albums.map(album => (
             <Album key={album.id} item={album} />
           ))}
         </View>
-        <Text style={{textAlign: 'center', marginVertical: 20}}>
+        <Text
+          style={[
+            {
+              textAlign: 'center',
+              marginVertical: 20,
+              paddingBottom: tabBarHeight + 60,
+              fontSize: 10,
+            },
+          ]}>
           {albums.length} albums shown
         </Text>
       </ScrollView>
@@ -82,6 +93,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'white',
     marginHorizontal: 'auto',
     flex: 1,
   },
@@ -95,18 +107,22 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 100,
     maxWidth: 100,
-    height: 100,
+    // height: 100,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginVertical: 8,
+    backgroundColor: 'floralwhite',
+    margin: 7,
+    padding: 10,
+    borderRadius: 10,
   },
   itemText: {
     fontSize: 9,
-    marginTop: 2,
+    marginTop: 4,
   },
   image: {
     width: 70,
     height: 70,
-    borderRadius: 70,
+    borderRadius: 10,
   },
 });

@@ -10,12 +10,14 @@ import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import Loading from '../components/Loading';
 import TracklistItem from '../components/TracklistItem';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 const TracklistScreen = ({route}) => {
   const {listId} = route.params;
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
   const [loading, setLoading] = useState(true);
   const [tracks, setTracks] = useState([]);
+  const tabBarHeight = useBottomTabBarHeight();
 
   useEffect(() => {
     firestore()
@@ -49,7 +51,7 @@ const TracklistScreen = ({route}) => {
             <Image source={{uri: track.coverUrl}} style={[styles.image]} />
             <Text style={styles.albumTitle}>{track.album}</Text>
           </View>
-          <View style={[styles.padding]}>
+          <View style={[styles.padding, {paddingBottom: tabBarHeight + 60}]}>
             {tracks.map(item => (
               <TracklistItem key={item.id} item={item} />
             ))}
