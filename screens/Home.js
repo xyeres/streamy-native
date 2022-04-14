@@ -4,8 +4,9 @@ import {
   View,
   Image,
   Button,
-  FlatList,
+  ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {State, usePlaybackState} from 'react-native-track-player';
@@ -15,6 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 const Home = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [albums, setAlbums] = useState([]);
+  const {width: DEVICE_WIDTH} = Dimensions.get('window');
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -39,33 +41,42 @@ const Home = ({navigation}) => {
   const playbackState = usePlaybackState();
   const isPlaying = playbackState === State.Playing;
 
+  const Album = ({item: album}) => {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Tracklist', {
+            listId: album.id,
+            title: album.title,
+          })
+        }>
+        <View style={styles.item}>
+          <Image source={{uri: album.coverUrl}} style={styles.image} />
+          <Text style={styles.itemText}>{album.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
   if (loading) {
     return <Loading />;
   }
 
   return (
     <View style={styles.container}>
-      <Button title="Search" onPress={() => navigation.navigate('Search')} />
-      <Button title="Player" onPress={() => navigation.navigate('Player')} />
-      <Button title="Test" onPress={() => navigation.navigate('Test')} />
-      <FlatList
-        data={albums}
-        numColumns={3}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('Tracklist', {
-                listId: item.id,
-                title: item.title,
-              })
-            }>
-            <View style={styles.item}>
-              <Image source={{uri: item.coverUrl}} style={styles.image} />
-              <Text style={styles.itemText}>{item.title}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+      <ScrollView>
+        <Button title="Search" onPress={() => navigation.navigate('Search')} />
+        <Button title="Player" onPress={() => navigation.navigate('Player')} />
+        <Button title="Test" onPress={() => navigation.navigate('Test')} />
+        <View style={[styles.grid, {width: DEVICE_WIDTH}]}>
+          {albums.map(album => (
+            <Album key={album.id} item={album} />
+          ))}
+        </View>
+        <Text style={{textAlign: 'center', marginVertical: 20}}>
+          {albums.length} albums shown
+        </Text>
+      </ScrollView>
     </View>
   );
 };
@@ -74,22 +85,31 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
     marginHorizontal: 'auto',
-    width: '100%',
+    flex: 1,
+  },
+  grid: {
+    marginHorizontal: 'auto',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
   },
   item: {
     flex: 1,
+    minWidth: 100,
     maxWidth: 100,
-    margin: 8,
+    height: 100,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginVertical: 8,
   },
   itemText: {
-    fontSize: 10,
+    fontSize: 9,
     marginTop: 2,
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
+    width: 70,
+    height: 70,
+    borderRadius: 70,
   },
 });
