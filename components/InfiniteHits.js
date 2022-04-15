@@ -3,6 +3,8 @@ import {StyleSheet, View, FlatList, Image, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {connectInfiniteHits} from 'react-instantsearch-native';
 import Highlight from './Highlight';
+import CONSTANTS from '../utils/constants';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 const styles = StyleSheet.create({
   separator: {
@@ -27,27 +29,32 @@ const styles = StyleSheet.create({
 });
 
 const InfiniteHits = ({hits, hasMore, refineNext}) => {
+  const tabBarHeight = useBottomTabBarHeight() + 40;
+
   return (
-    <FlatList
-      data={hits}
-      keyExtractor={item => item.objectID}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
-      onEndReached={() => hasMore && refineNext()}
-      renderItem={({item}) => (
-        <View style={styles.item}>
-          <Image
-            style={styles.coverImage}
-            source={{
-              uri: item.coverUrl,
-            }}
-          />
-          <View>
-            <Highlight attribute="title" hit={item} />
-            <Text>{item.artist}</Text>
+    <>
+      <FlatList
+        data={hits}
+        keyExtractor={item => item.objectID}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        onEndReached={() => hasMore && refineNext()}
+        contentContainerStyle={{paddingBottom: tabBarHeight}}
+        renderItem={({item}) => (
+          <View style={styles.item}>
+            <Image
+              style={styles.coverImage}
+              source={{
+                uri: item.coverUrl,
+              }}
+            />
+            <View>
+              <Highlight attribute="title" hit={item} />
+              <Text>{item.artist}</Text>
+            </View>
           </View>
-        </View>
-      )}
-    />
+        )}
+      />
+    </>
   );
 };
 

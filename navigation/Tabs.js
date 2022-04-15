@@ -5,17 +5,17 @@ import HomeStackScreen from './HomeStack';
 import SearchStackScreen from './SearchStack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FunPlayer from '../components/FunPlayer';
-
+import COLORS from '../utils/colors';
 const Tab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({children, onPress}) => {
   return (
     <TouchableOpacity
+      activeOpacity={1}
       style={{
         top: -20,
         justifyContent: 'center',
         alignItems: 'center',
-        ...styles.shadow,
       }}
       onPress={onPress}>
       <View
@@ -23,7 +23,8 @@ const CustomTabBarButton = ({children, onPress}) => {
           width: 80,
           height: 80,
           borderRadius: 40,
-          backgroundColor: 'lightgreen',
+          backgroundColor: 'white',
+          ...styles.shadow,
         }}>
         {children}
       </View>
@@ -42,13 +43,13 @@ const Tabs = () => {
           marginHorizontal: 20,
           elevation: 0,
           bottom: 12,
-          backgroundColor: 'rgba(256,256,256, 1)',
+          backgroundColor: 'white',
           borderRadius: 15,
           height: 72,
           ...styles.shadow,
         },
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: COLORS.DARK_PINK,
+        tabBarInactiveTintColor: COLORS.INACTIVE,
       })}>
       <Tab.Screen
         name="Home"
@@ -60,7 +61,7 @@ const Tabs = () => {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
             return (
               <View style={{alignItems: 'center'}}>
-                <Ionicons name={iconName} size={25} color={color} />
+                <Ionicons name={iconName} size={size} color={color} />
               </View>
             );
           },
@@ -72,9 +73,10 @@ const Tabs = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
+            focused ? (color = COLORS.DARK_PINK) : (color = COLORS.INACTIVE);
             let iconName;
             iconName = focused ? 'musical-notes-sharp' : 'musical-notes-sharp';
-            return <Ionicons name={iconName} size={35} color={'white'} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarButton: props => {
             return <CustomTabBarButton {...props} />;
@@ -91,7 +93,7 @@ const Tabs = () => {
             iconName = focused ? 'search' : 'search';
             return (
               <View style={{alignItems: 'center'}}>
-                <Ionicons name={iconName} size={25} color={color} />
+                <Ionicons name={iconName} size={size} color={color} />
               </View>
             );
           },
@@ -108,9 +110,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 10,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.15,
     shadowRadius: 3.5,
-    elevation: 5,
+    elevation: 3,
   },
 });
 

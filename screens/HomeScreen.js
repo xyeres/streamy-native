@@ -13,13 +13,14 @@ import {State, usePlaybackState} from 'react-native-track-player';
 import Loading from '../components/Loading';
 import firestore from '@react-native-firebase/firestore';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import CONSTANTS from '../utils/constants';
 
 const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [albums, setAlbums] = useState([]);
   const {width: DEVICE_WIDTH} = Dimensions.get('window');
 
-  const tabBarHeight = useBottomTabBarHeight();
+  const tabBarHeight = useBottomTabBarHeight() + CONSTANTS.TAB_PADDING;
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -78,7 +79,7 @@ const HomeScreen = ({navigation}) => {
             {
               textAlign: 'center',
               marginVertical: 20,
-              paddingBottom: tabBarHeight + 60,
+              paddingBottom: tabBarHeight,
               fontSize: 10,
             },
           ]}>
@@ -111,9 +112,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginVertical: 8,
-    backgroundColor: 'floralwhite',
-    margin: 7,
-    padding: 10,
+    margin: 2,
+    padding: 8,
     borderRadius: 10,
   },
   itemText: {
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 75,
+    height: 75,
     borderRadius: 10,
   },
 });
