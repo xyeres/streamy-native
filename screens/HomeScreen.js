@@ -3,7 +3,7 @@ import {
   Text,
   View,
   Image,
-  Button,
+  StatusBar,
   ScrollView,
   TouchableOpacity,
   Dimensions,
@@ -68,6 +68,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="black" />
       <ScrollView>
         <View style={[styles.grid, {width: DEVICE_WIDTH, paddingTop: 20}]}>
           {albums.map(album => (
@@ -94,7 +95,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     marginHorizontal: 'auto',
     flex: 1,
   },
@@ -117,12 +118,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   itemText: {
-    fontSize: 9,
-    marginTop: 4,
+    fontSize: 10,
+    marginTop: 6,
+    color: 'white',
   },
   image: {
     width: 75,
     height: 75,
-    borderRadius: 10,
+    borderRadius: 6,
   },
 });

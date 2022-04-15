@@ -6,6 +6,7 @@ import SearchStackScreen from './SearchStack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FunPlayer from '../components/FunPlayer';
 import COLORS from '../utils/colors';
+import CONSTANTS from '../utils/constants';
 const Tab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({children, onPress}) => {
@@ -22,7 +23,7 @@ const CustomTabBarButton = ({children, onPress}) => {
         style={{
           width: 80,
           height: 80,
-          borderRadius: 40,
+          borderRadius: CONSTANTS.ROUNDED_EDGE,
           backgroundColor: 'white',
           ...styles.shadow,
         }}>
