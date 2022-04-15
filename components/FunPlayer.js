@@ -74,13 +74,6 @@ export default function FunPlayer({onPress, ...rest}) {
     <SafeAreaView style={styles.root}>
       <View style={StyleSheet.absoluteFill} />
       <View style={styles.container}>
-        {/* Header Code for future features*/}
-        {/* <View style={styles.header}>
-          <Text style={styles.title}>Now Playing</Text>
-          <RectButton style={styles.button} {...{onPress}}>
-            <Icon name="more-horizontal" color="white" size={24} />
-          </RectButton>
-        </View> */}
         <Image source={require('../assets/thebay.jpg')} style={styles.cover} />
         <View style={{width: DEVICE_WIDTH - 90, alignSelf: 'center'}}>
           <View style={styles.metadata}>
