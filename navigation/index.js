@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './Routes';
-import {store} from '../redux/store';
+import {store} from '../lib/store';
 import {Provider as ReduxProvider} from 'react-redux';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 

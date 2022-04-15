@@ -3,6 +3,10 @@ import TrackPlayer, {Event, State} from 'react-native-track-player';
 let wasPausedByDuck = false;
 
 module.exports = async function setup() {
+  // These are remote events handled by the service,
+  // not to be confused with state change events that
+  // may happen in the player's internal state
+
   TrackPlayer.addEventListener(Event.RemotePause, () => {
     TrackPlayer.pause();
   });
