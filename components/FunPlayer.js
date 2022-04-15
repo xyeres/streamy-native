@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 16,
-    backgroundColor: 'pink',
+    paddingTop: DEVICE_HEIGHT * 0.1,
+    backgroundColor: 'black',
     height: DEVICE_HEIGHT,
   },
   header: {
@@ -41,20 +42,22 @@ const styles = StyleSheet.create({
   },
   metadata: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   song: {
     fontSize: 32,
     fontWeight: 'bold',
+    textAlign: 'center',
     color: 'white',
   },
   artist: {
+    textAlign: 'center',
     color: 'white',
   },
   slider: {
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    width: DEVICE_WIDTH - 32,
+    // width: DEVICE_WIDTH - 32,
     borderRadius: 2,
     height: 4,
     marginVertical: 16,
@@ -71,27 +74,29 @@ export default function FunPlayer({onPress, ...rest}) {
     <SafeAreaView style={styles.root}>
       <View style={StyleSheet.absoluteFill} />
       <View style={styles.container}>
-        <View style={styles.header}>
+        {/* Header Code for future features*/}
+        {/* <View style={styles.header}>
           <Text style={styles.title}>Now Playing</Text>
           <RectButton style={styles.button} {...{onPress}}>
             <Icon name="more-horizontal" color="white" size={24} />
           </RectButton>
-        </View>
+        </View> */}
         <Image source={require('../assets/thebay.jpg')} style={styles.cover} />
-        <View style={styles.metadata}>
-          <View>
-            <Text style={styles.song}>The Bay</Text>
-            <Text style={styles.artist}>Metronomy</Text>
+        <View style={{width: DEVICE_WIDTH - 90, alignSelf: 'center'}}>
+          <View style={styles.metadata}>
+            <View>
+              <Text style={styles.song}>The Bay</Text>
+              <Text style={styles.artist}>Metronomy</Text>
+            </View>
           </View>
-          <AntDesign name="heart" size={24} color="#55b661" />
-        </View>
-        <View style={styles.slider} />
-        <View style={styles.controls}>
-          <Icon name="shuffle" color="rgba(255, 255, 255, 0.5)" size={24} />
-          <AntDesign name="stepbackward" color="white" size={32} />
-          <AntDesign name="play" color="white" size={48} />
-          <AntDesign name="stepforward" color="white" size={32} />
-          <Icon name="repeat" color="rgba(255, 255, 255, 0.5)" size={24} />
+          <View style={styles.slider} />
+          <View style={styles.controls}>
+            <Icon name="shuffle" color="rgba(255, 255, 255, 0.5)" size={24} />
+            <AntDesign name="stepbackward" color="white" size={32} />
+            <AntDesign name="play" color="white" size={48} />
+            <AntDesign name="stepforward" color="white" size={32} />
+            <Icon name="repeat" color="rgba(255, 255, 255, 0.5)" size={24} />
+          </View>
         </View>
       </View>
     </SafeAreaView>
