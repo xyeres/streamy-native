@@ -12,8 +12,9 @@ import Loading from '../components/Loading';
 import TracklistItem from '../components/TracklistItem';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import CONSTANTS from '../utils/constants';
+import BackButton from '../components/BackButton';
 
-const TracklistScreen = ({route}) => {
+const TracklistScreen = ({navigation, route}) => {
   const {listId} = route.params;
   const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,10 @@ const TracklistScreen = ({route}) => {
 
   return (
     <View style={[styles.container]}>
+      <BackButton
+        style={{alignSelf: 'flex-start', marginLeft: 10}}
+        navigation={navigation}
+      />
       <ScrollView style={styles.scrollView}>
         <View>
           <View style={[styles.headerContainer, {width: SCREEN_WIDTH}]}>
@@ -68,13 +73,13 @@ export default TracklistScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: 'black',
   },
   padding: {
     paddingVertical: 15,

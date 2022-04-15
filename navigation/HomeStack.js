@@ -17,7 +17,10 @@ const HomeStackScreen = () => {
       />
       <HomeStack.Screen
         name="Tracklist"
-        options={({route}) => ({title: route.params.title})}
+        options={({route}) => ({
+          title: route.params.title,
+          headerShown: false,
+        })}
         component={TracklistScreen}
       />
     </HomeStack.Navigator>

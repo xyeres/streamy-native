@@ -44,14 +44,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 0.5,
-    borderBottomColor: 'lightgray',
+    borderBottomColor: 'dimgray',
     // paddingHorizontal: 10,
     paddingBottom: 10,
     paddingTop: 10,
   },
   itemText: {
     fontSize: 11,
-    color: 'black',
+    color: 'white',
     marginTop: 2,
   },
   secondText: {
