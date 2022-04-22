@@ -38,6 +38,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TrackPlayer/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TrackPlayer/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-TrackPlayer-TrackPlayerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrackPlayer-TrackPlayerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A0EF2D528124D660005590F /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		3A0EF2D728124D770005590F /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		3A0EF2E32812504C0005590F /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		3A31E8992812218B00BF286F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-TrackPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackPlayer.debug.xcconfig"; path = "Target Support Files/Pods-TrackPlayer/Pods-TrackPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-TrackPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackPlayer.release.xcconfig"; path = "Target Support Files/Pods-TrackPlayer/Pods-TrackPlayer.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +121,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3A0EF2E32812504C0005590F /* AntDesign.ttf */,
+				3A0EF2D528124D660005590F /* Ionicons.ttf */,
+				3A0EF2D728124D770005590F /* Feather.ttf */,
 				3A31E8992812218B00BF286F /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* TrackPlayer */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
