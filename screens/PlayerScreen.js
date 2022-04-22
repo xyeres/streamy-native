@@ -22,53 +22,15 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 
-import playlistData from '../features/player/playlist.json';
-
-import localTrack from '../features/player/test.mp3';
 import {useDispatch, useSelector} from 'react-redux';
+
 import {
   selectArtist,
   setArtist,
   setIsPlaying,
   setNotPlaying,
 } from '../features/player/playerSlice';
-
-const setupIfNecessary = async () => {
-  // if app was relaunched and music was already playing, we don't setup again.
-  const currentTrack = await TrackPlayer.getCurrentTrack();
-  if (currentTrack !== null) {
-    return;
-  }
-
-  await TrackPlayer.setupPlayer({});
-  await TrackPlayer.updateOptions({
-    stopWithApp: false,
-    capabilities: [
-      Capability.Play,
-      Capability.Pause,
-      Capability.SkipToNext,
-      Capability.SkipToPrevious,
-      Capability.Stop,
-    ],
-    compactCapabilities: [Capability.Play, Capability.Pause],
-  });
-
-  TrackPlayer.setRepeatMode(RepeatMode.Queue);
-};
-
-const togglePlayback = async playbackState => {
-  const currentTrack = await TrackPlayer.getCurrentTrack();
-
-  if (currentTrack == null) {
-    // TODO: Perhaps present an error or restart the playlist?
-  } else {
-    if (playbackState !== State.Playing) {
-      await TrackPlayer.play();
-    } else {
-      await TrackPlayer.pause();
-    }
-  }
-};
+import setupIfNecessary, {togglePlayback} from '../features/player/trackPlayer';
 
 const PlayerScreen = ({navigation}) => {
   const playbackState = usePlaybackState();
@@ -80,6 +42,7 @@ const PlayerScreen = ({navigation}) => {
 
   const trackArtist = useSelector(selectArtist);
 
+  // Can this be used in a thunk?
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
     // if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
     const track = await TrackPlayer.getTrack(event.nextTrack);

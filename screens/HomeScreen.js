@@ -9,18 +9,21 @@ import {
   Dimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {State, usePlaybackState} from 'react-native-track-player';
 import Loading from '../components/Loading';
 import firestore from '@react-native-firebase/firestore';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import CONSTANTS from '../utils/constants';
+import setupIfNecessary from '../features/player/trackPlayer';
 
 const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [albums, setAlbums] = useState([]);
   const {width: DEVICE_WIDTH} = Dimensions.get('window');
-
   const tabBarHeight = useBottomTabBarHeight() + CONSTANTS.TAB_PADDING;
+
+  useEffect(() => {
+    setupIfNecessary();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -41,9 +44,6 @@ const HomeScreen = ({navigation}) => {
       unsubscribe();
     };
   }, []);
-
-  const playbackState = usePlaybackState();
-  const isPlaying = playbackState === State.Playing;
 
   const Album = ({item: album}) => {
     return (

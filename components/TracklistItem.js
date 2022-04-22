@@ -1,32 +1,28 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import secondsToTime from '../utils/secondsToTime';
-import TrackPlayer from 'react-native-track-player';
+import {resetAndPlayList} from '../features/player/playerSlice';
+import {useDispatch} from 'react-redux';
 
-const TracklistItem = ({item}) => {
-  const duration = secondsToTime(item.format.duration);
+const TracklistItem = ({track, tracks, index}) => {
+  const duration = secondsToTime(track.duration);
+  const dispatch = useDispatch();
 
-  const track = {
-    url: item.songUrl,
-    title: item.title,
-    artist: item.artist,
-    duration: item.format.duration,
-    artwork: item.coverUrl,
-  };
-
-  const onPressAddToQueue = async track => {
-    await TrackPlayer.reset();
-    await TrackPlayer.add([track]);
-    await TrackPlayer.play();
+  const handleResetAndPlayList = payload => {
+    dispatch(resetAndPlayList(payload));
+    console.log(payload.index);
+    console.log(payload.track);
+    console.log(payload.tracks);
   };
 
   return (
-    <TouchableOpacity onPress={() => onPressAddToQueue(track)}>
+    <TouchableOpacity
+      onPress={() => handleResetAndPlayList({track, tracks, index})}>
       <View style={styles.itemRow}>
         <View>
-          <Text style={styles.itemText}>{item.title}</Text>
+          <Text style={styles.itemText}>{track.title}</Text>
           <Text style={[styles.itemText, styles.secondText]}>
-            {item.artist}
+            {track.artist}
           </Text>
         </View>
         <Text style={styles.itemText}>{duration}</Text>

@@ -9,16 +9,24 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Entypo from 'react-native-vector-icons/Entypo';
 
 import CONSTANTS from '../utils/constants';
 import COLORS from '../utils/colors';
-import {RectButton, TouchableOpacity} from 'react-native-gesture-handler';
+
+import {RectButton} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectNowPlaying, togglePlayback} from '../features/player/playerSlice';
 
 const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
 
 export default function FunPlayer({onPress, ...rest}) {
-  const trackLoaded = true;
+  const dispatch = useDispatch();
+  const nowPlaying = useSelector(selectNowPlaying);
+  const trackLoaded = nowPlaying.url !== null;
+
+  const handleTogglePlayback = () => {
+    dispatch(togglePlayback());
+  };
 
   return (
     <SafeAreaView style={styles.root}>
@@ -26,15 +34,12 @@ export default function FunPlayer({onPress, ...rest}) {
       <View style={styles.container}>
         {trackLoaded ? (
           <>
-            <Image
-              source={require('../assets/thebay.jpg')}
-              style={styles.cover}
-            />
+            <Image source={{uri: nowPlaying?.artwork}} style={styles.cover} />
             <View style={styles.controlsContainer}>
               <View style={styles.metadata}>
                 <View>
-                  <Text style={styles.song}>The Bay</Text>
-                  <Text style={styles.artist}>Metronomy</Text>
+                  <Text style={styles.song}>{nowPlaying.title}</Text>
+                  <Text style={styles.artist}>{nowPlaying.artist}</Text>
                 </View>
               </View>
               <View style={styles.slider} />
@@ -45,7 +50,9 @@ export default function FunPlayer({onPress, ...rest}) {
                   size={24}
                 />
                 <AntDesign name="stepbackward" color="white" size={32} />
-                <AntDesign name="play" color="white" size={48} />
+                <RectButton onPress={handleTogglePlayback}>
+                  <AntDesign name="play" color="white" size={48} />
+                </RectButton>
                 <AntDesign name="stepforward" color="white" size={32} />
                 <Icon
                   name="repeat"
@@ -57,7 +64,7 @@ export default function FunPlayer({onPress, ...rest}) {
           </>
         ) : (
           <View style={styles.cta}>
-            <Entypo name="shuffle" color="rgba(256,256,256, 0.5)" size={38} />
+            <Icon name="shuffle" color="rgba(256,256,256, 0.5)" size={38} />
             <Text style={styles.ctaTxt}>Not sure where to start?</Text>
             <Text style={styles.ctaSubTxt}>
               We'll the shuffle the full library for you.
@@ -148,7 +155,7 @@ const styles = StyleSheet.create({
   },
   ctaBtn: {
     backgroundColor: 'white',
-    borderRadius: 500,
+    borderRadius: (DEVICE_WIDTH - 256) / 2,
     height: DEVICE_WIDTH - 256,
     width: DEVICE_WIDTH - 256,
     flexDirection: 'row',

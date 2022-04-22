@@ -29,9 +29,19 @@ const TracklistScreen = ({navigation, route}) => {
       .then(qSnapshot => {
         const tracks = [];
         qSnapshot.forEach(doc => {
+          const {
+            songUrl,
+            coverUrl,
+            format: {duration},
+            lastUpdated,
+            ...rest
+          } = doc.data();
           tracks.push({
-            ...doc.data(),
             key: doc.id,
+            url: songUrl,
+            artwork: coverUrl,
+            duration,
+            ...rest,
           });
         });
         setTracks(tracks);
@@ -43,7 +53,7 @@ const TracklistScreen = ({navigation, route}) => {
     return <Loading />;
   }
 
-  const track = tracks[0];
+  const firstTrack = tracks[0];
 
   return (
     <View style={[styles.container]}>
@@ -54,12 +64,17 @@ const TracklistScreen = ({navigation, route}) => {
       <ScrollView style={styles.scrollView}>
         <View>
           <View style={[styles.headerContainer, {width: SCREEN_WIDTH}]}>
-            <Image source={{uri: track.coverUrl}} style={[styles.image]} />
-            <Text style={styles.albumTitle}>{track.album}</Text>
+            <Image source={{uri: firstTrack.artwork}} style={[styles.image]} />
+            <Text style={styles.albumTitle}>{firstTrack.album}</Text>
           </View>
           <View style={[styles.padding, {paddingBottom: tabBarHeight}]}>
-            {tracks.map(item => (
-              <TracklistItem key={item.id} item={item} />
+            {tracks.map((track, index) => (
+              <TracklistItem
+                key={track.id}
+                index={index}
+                tracks={tracks}
+                track={track}
+              />
             ))}
           </View>
         </View>
