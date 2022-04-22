@@ -47,9 +47,9 @@ const Tabs = () => {
           backgroundColor: 'white',
           borderRadius: 15,
           height: 72,
-          display:'flex',
-          justifyContent:'center',
-          alignItems:'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           ...styles.shadow,
         },
         tabBarActiveTintColor: COLORS.DARK_PINK,
@@ -64,7 +64,7 @@ const Tabs = () => {
             let iconName;
             iconName = focused ? 'ios-home' : 'ios-home-outline';
             return (
-              <View style={{position:'absolute', top:20}}>
+              <View style={{position: 'absolute', top: 20}}>
                 <Ionicons name={iconName} size={size} color={color} />
               </View>
             );
@@ -96,7 +96,7 @@ const Tabs = () => {
             let iconName;
             iconName = focused ? 'search' : 'search';
             return (
-              <View  style={{position:'absolute', top:20}}>
+              <View style={{position: 'absolute', top: 20}}>
                 <Ionicons name={iconName} size={size} color={color} />
               </View>
             );
