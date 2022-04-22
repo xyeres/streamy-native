@@ -14,7 +14,7 @@ const CustomTabBarButton = ({children, onPress}) => {
     <TouchableOpacity
       activeOpacity={1}
       style={{
-        top: -20,
+        top: -8,
         justifyContent: 'center',
         alignItems: 'center',
       }}
@@ -47,6 +47,9 @@ const Tabs = () => {
           backgroundColor: 'white',
           borderRadius: 15,
           height: 72,
+          display:'flex',
+          justifyContent:'center',
+          alignItems:'center',
           ...styles.shadow,
         },
         tabBarActiveTintColor: COLORS.DARK_PINK,
@@ -61,7 +64,7 @@ const Tabs = () => {
             let iconName;
             iconName = focused ? 'ios-home' : 'ios-home-outline';
             return (
-              <View style={{alignItems: 'center'}}>
+              <View style={{position:'absolute', top:20}}>
                 <Ionicons name={iconName} size={size} color={color} />
               </View>
             );
@@ -93,7 +96,7 @@ const Tabs = () => {
             let iconName;
             iconName = focused ? 'search' : 'search';
             return (
-              <View style={{alignItems: 'center'}}>
+              <View  style={{position:'absolute', top:20}}>
                 <Ionicons name={iconName} size={size} color={color} />
               </View>
             );
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 3,
     },
     shadowOpacity: 0.15,
     shadowRadius: 3.5,
