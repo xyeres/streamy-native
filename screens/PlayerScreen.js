@@ -30,7 +30,7 @@ import {
   setIsPlaying,
   setNotPlaying,
 } from '../features/player/playerSlice';
-import setupIfNecessary, {togglePlayback} from '../features/player/trackPlayer';
+import setupIfNecessary from '../features/player/trackPlayerSetup';
 
 const PlayerScreen = ({navigation}) => {
   const playbackState = usePlaybackState();

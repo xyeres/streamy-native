@@ -33,6 +33,7 @@ const TracklistScreen = ({navigation, route}) => {
             songUrl,
             coverUrl,
             format: {duration},
+            // Pull out lastUpdated because it can't be serialized
             lastUpdated,
             ...rest
           } = doc.data();

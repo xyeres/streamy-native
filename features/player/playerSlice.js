@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import TrackPlayer, {State} from 'react-native-track-player';
-import {toggleTrackPlayerPlayback} from './trackPlayer';
 
 export const togglePlayback = createAsyncThunk(
   'player/togglePlayback',
@@ -8,7 +7,8 @@ export const togglePlayback = createAsyncThunk(
     const trackIndex = await TrackPlayer.getCurrentTrack();
     const trackObject = await TrackPlayer.getTrack(trackIndex);
     const state = await TrackPlayer.getState();
-    let isPlaying;
+    let isPlaying = null;
+
     if (trackIndex == null) {
       // TODO: Perhaps present an error or restart the playlist?
     } else {
@@ -35,10 +35,27 @@ export const addTrackToQueue = createAsyncThunk(
   },
 );
 
+export const onTrackChanged = createAsyncThunk(
+  'player/onTrackChanged',
+  async (trackIndex, thunkAPI) => {
+    if (!trackIndex) {
+      return;
+    }
+    const track = await TrackPlayer.getTrack(trackIndex);
+    thunkAPI.dispatch(setNowPlaying(track));
+    thunkAPI.dispatch(setIsPlaying());
+    return track;
+  },
+);
+
 export const resetAndPlayList = createAsyncThunk(
   'player/resetAndPlayList',
-  async (payload, api) => {
+  async (payload, thunkAPI) => {
     const {tracks, index, track} = payload;
+    // Sync now playing
+    thunkAPI.dispatch(setNowPlaying(track));
+    thunkAPI.dispatch(setIsPlaying());
+    // Setup player
     await TrackPlayer.reset();
     await TrackPlayer.add(tracks);
     await TrackPlayer.skip(index);
@@ -47,8 +64,12 @@ export const resetAndPlayList = createAsyncThunk(
   },
 );
 
+export const skipSong = createAsyncThunk('player/skipSong', async () => {
+  await TrackPlayer.skipToNext();
+});
+
 const initialState = {
-  playing: false,
+  isPlaying: false,
   nowPlaying: {
     id: null,
     url: null,
@@ -63,29 +84,40 @@ const initialState = {
 export const playerSlice = createSlice({
   name: 'player',
   initialState,
-  reducers: {},
+  reducers: {
+    setNowPlaying: (state, action) => {
+      state.nowPlaying = action.payload;
+    },
+    setIsPlaying: state => {
+      state.isPlaying = true;
+    },
+    unsetIsPlaying: state => {
+      state.isPlaying = false;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(addTrackToQueue.fulfilled, (state, action) => {
-      state.nowPlaying = action.payload;
+      //TODO handle when track is added to queue
     });
     builder.addCase(togglePlayback.fulfilled, (state, action) => {
-      state.playing = action.payload.isPlaying;
+      state.isPlaying = action.payload.isPlaying;
       state.nowPlaying = action.payload.track;
     });
     builder.addCase(resetAndPlayList.fulfilled, (state, action) => {
-      state.nowPlaying = action.payload;
+      // Do nothing, we done
     });
-    builder.addCase(resetAndPlayList.rejected, (state, action) => {
-      state.nowPlaying = action.payload;
+    builder.addCase(skipSong.fulfilled, (state, action) => {
+      //TODO what happens now?
     });
   },
 });
 export default playerSlice.reducer;
 
 // Actions
-export const {setIsPlaying, setNotPlaying, setArtist} = playerSlice.actions;
+export const {unsetIsPlaying, setIsPlaying, setNowPlaying} =
+  playerSlice.actions;
 
 // Selectors
 export const selectNowPlaying = state => state.player.nowPlaying;
-export const selectIsPlaying = state => state.player.playing;
+export const selectIsPlaying = state => state.player.isPlaying;
 export const selectArtist = state => state.player.artist;

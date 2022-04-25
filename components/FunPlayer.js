@@ -13,9 +13,20 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import CONSTANTS from '../utils/constants';
 import COLORS from '../utils/colors';
 
-import {RectButton} from 'react-native-gesture-handler';
+import {FlatList, RectButton} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectNowPlaying, togglePlayback} from '../features/player/playerSlice';
+import {
+  onTrackChanged,
+  selectIsPlaying,
+  selectNowPlaying,
+  setNowPlaying,
+  skipSong,
+  togglePlayback,
+} from '../features/player/playerSlice';
+import TrackPlayer, {
+  Event,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 
 const {width: DEVICE_WIDTH, height: DEVICE_HEIGHT} = Dimensions.get('window');
 
@@ -23,10 +34,33 @@ export default function FunPlayer({onPress, ...rest}) {
   const dispatch = useDispatch();
   const nowPlaying = useSelector(selectNowPlaying);
   const trackLoaded = nowPlaying.url !== null;
+  const isPlaying = useSelector(selectIsPlaying);
+
+  // Can this be used in a thunk?
+  useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
+      dispatch(onTrackChanged(event.nextTrack));
+    }
+  });
+
+  const queue = TrackPlayer.getQueue();
+  console.log(queue)
 
   const handleTogglePlayback = () => {
     dispatch(togglePlayback());
   };
+
+  const handleSkip = () => {
+    dispatch(skipSong());
+  };
+
+  // const QueueItem = ({item}) => {
+  //   return (
+  //     <Text>
+  //       {item.title} - {item.artist}
+  //     </Text>
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.root}>
@@ -51,14 +85,28 @@ export default function FunPlayer({onPress, ...rest}) {
                 />
                 <AntDesign name="stepbackward" color="white" size={32} />
                 <RectButton onPress={handleTogglePlayback}>
-                  <AntDesign name="play" color="white" size={48} />
+                  {isPlaying ? (
+                    <AntDesign name="pausecircle" color="white" size={48} />
+                  ) : (
+                    <AntDesign name="play" color="white" size={48} />
+                  )}
                 </RectButton>
-                <AntDesign name="stepforward" color="white" size={32} />
+                <RectButton onPress={handleSkip}>
+                  <AntDesign name="stepforward" color="white" size={32} />
+                </RectButton>
                 <Icon
                   name="repeat"
                   color="rgba(255, 255, 255, 0.5)"
                   size={24}
                 />
+                {/* <SafeAreaView>
+                <FlatList
+                  renderItem={QueueItem}
+                  data={queue}
+                  keyExtractor={item => item.id}
+                />
+                </SafeAreaView> */}
+                ;
               </View>
             </View>
           </>
@@ -67,7 +115,7 @@ export default function FunPlayer({onPress, ...rest}) {
             <Icon name="shuffle" color="rgba(256,256,256, 0.5)" size={38} />
             <Text style={styles.ctaTxt}>Not sure where to start?</Text>
             <Text style={styles.ctaSubTxt}>
-              We'll the shuffle the full library for you.
+              We'll shuffle the full library for you.
             </Text>
             <RectButton style={[styles.cover, styles.ctaBtn]}>
               <AntDesign name="play" color="black" size={88} />

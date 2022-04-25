@@ -13,7 +13,7 @@ import Loading from '../components/Loading';
 import firestore from '@react-native-firebase/firestore';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import CONSTANTS from '../utils/constants';
-import setupIfNecessary from '../features/player/trackPlayer';
+import setupIfNecessary from '../features/player/trackPlayerSetup';
 
 const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
